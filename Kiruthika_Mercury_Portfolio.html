@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiruthika Venkatesan — Senior Product Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f8f5f0;
+    --cream: #f0ece4;
+    --accent: #d4522a;
+    --accent2: #1a4a8a;
+    --muted: #6b6b6b;
+    --border: rgba(10,10,10,0.1);
+    --tag-bg: rgba(10,10,10,0.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Syne', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.2s, height 0.2s, opacity 0.2s;
+    opacity: 0.5;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 60px;
+    background: rgba(248,245,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--ink); text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; color: var(--paper) !important;
+    background: var(--ink);
+    padding: 8px 20px; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent) !important; color: var(--paper) !important; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 60px;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 3rem;
+    position: relative;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 1px; height: 100%;
+    background: linear-gradient(180deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--accent);
+    letter-spacing: 0.1em; margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+
+  .hero-tag::before {
+    content: '//';
+    opacity: 0.4;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 7vw, 7rem);
+    font-weight: 300; line-height: 0.95;
+    color: var(--ink); margin-bottom: 2rem;
+  }
+
+  h1 strong {
+    font-weight: 700;
+    display: block;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 1rem; color: var(--muted);
+    max-width: 420px; line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-desc strong { color: var(--ink); font-weight: 600; }
+
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--ink); color: var(--paper);
+    text-decoration: none; padding: 13px 30px;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent; color: var(--ink);
+    text-decoration: none; padding: 13px 30px;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border: 1.5px solid var(--ink);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* HERO RIGHT */
+  .hero-right {
+    background: var(--cream);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 6rem 3rem 6rem 4rem;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: 'PM';
+    position: absolute; bottom: -2rem; right: -1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18rem; font-weight: 700;
+    color: rgba(10,10,10,0.04); line-height: 1;
+    pointer-events: none;
+  }
+
+  .stat-stack { display: flex; flex-direction: column; gap: 2rem; width: 100%; }
+
+  .stat-item {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .stat-item::before {
+    content: '';
+    position: absolute; left: 0; top: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+
+  .stat-item:hover::before { opacity: 1; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 300;
+    color: var(--ink); line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-num span { color: var(--accent); }
+
+  .stat-label {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* SECTIONS */
+  section { position: relative; }
+
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 3rem; }
+
+  .section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; color: var(--accent);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-eyebrow::after {
+    content: ''; flex: 1; max-width: 40px;
+    height: 1px; background: var(--accent); opacity: 0.5;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+    font-weight: 300; line-height: 1.15;
+    color: var(--ink); margin-bottom: 1rem;
+  }
+  h2 strong { font-weight: 700; }
+  h2 em { font-style: italic; color: var(--accent); }
+
+  /* ABOUT */
+  #about { padding: 8rem 0; background: var(--paper); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted); font-size: 0.95rem;
+    line-height: 1.9; margin-bottom: 1.1rem;
+  }
+  .about-text p strong { color: var(--ink); font-weight: 600; }
+
+  .about-pillars { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .pillar {
+    display: grid; grid-template-columns: 48px 1fr;
+    gap: 1.25rem; align-items: start;
+    padding: 1.25rem; background: var(--cream);
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .pillar:hover { border-left-color: var(--accent); background: #ebe7df; }
+
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300; color: var(--accent);
+    line-height: 1;
+  }
+
+  .pillar-title {
+    font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 0.3rem;
+  }
+
+  .pillar-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* EXPERIENCE */
+  #experience { padding: 8rem 0; background: var(--cream); }
+
+  .exp-grid { display: flex; flex-direction: column; gap: 0; margin-top: 4rem; }
+
+  .exp-item {
+    display: grid; grid-template-columns: 220px 1fr;
+    gap: 3rem; padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+
+  .exp-item.visible { opacity: 1; transform: translateY(0); }
+  .exp-item:last-child { border-bottom: 1px solid var(--border); }
+
+  .exp-meta {}
+
+  .exp-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; color: var(--accent);
+    letter-spacing: 0.08em; margin-bottom: 0.5rem;
+  }
+
+  .exp-company {
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .exp-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600;
+    color: var(--ink); margin-bottom: 1rem; line-height: 1.2;
+  }
+
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .exp-bullets li {
+    font-size: 0.875rem; color: var(--muted);
+    padding-left: 1.25rem; position: relative; line-height: 1.7;
+  }
+  .exp-bullets li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent); font-size: 0.75rem;
+  }
+  .exp-bullets li strong { color: var(--ink); font-weight: 600; }
+
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.25rem; }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem; padding: 4px 10px;
+    background: var(--tag-bg); color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* PROJECTS */
+  #projects { padding: 8rem 0; background: var(--paper); }
+
+  .proj-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; margin-top: 4rem;
+    border: 1px solid var(--border);
+  }
+
+  .proj-card {
+    padding: 2.5rem; background: var(--paper);
+    border: 1px solid transparent;
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s, background 0.2s;
+  }
+
+  .proj-card.visible { opacity: 1; transform: translateY(0); }
+  .proj-card:hover { background: var(--cream); }
+
+  .proj-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .proj-card:hover::before { transform: scaleX(1); }
+
+  .proj-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem; color: var(--accent);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .proj-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600;
+    color: var(--ink); margin-bottom: 0.75rem; line-height: 1.3;
+  }
+
+  .proj-desc {
+    font-size: 0.84rem; color: var(--muted);
+    line-height: 1.75; margin-bottom: 1.25rem;
+  }
+
+  .proj-stack { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 1.5rem; }
+
+  .proj-results {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.75rem; padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .res {
+    font-size: 0.78rem; display: flex;
+    align-items: baseline; gap: 5px;
+  }
+  .res strong { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+  .res span { color: var(--muted); font-size: 0.72rem; }
+
+  /* SKILLS */
+  #skills { padding: 8rem 0; background: var(--ink); }
+  #skills .section-eyebrow { color: var(--accent); }
+  #skills h2 { color: var(--paper); }
+  #skills h2 em { color: var(--accent); }
+
+  .skills-layout {
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 5rem; margin-top: 4rem; align-items: start;
+  }
+
+  .skills-intro { color: rgba(248,245,240,0.55); font-size: 0.9rem; line-height: 1.9; }
+
+  .skills-groups { display: flex; flex-direction: column; gap: 2rem; }
+
+  .sg {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(248,245,240,0.1);
+    opacity: 0; transform: translateX(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .sg.visible { opacity: 1; transform: translateX(0); }
+  .sg:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .sg-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; color: var(--accent);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .sg-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .skill-pill {
+    font-size: 0.75rem; color: rgba(248,245,240,0.65);
+    background: rgba(248,245,240,0.06);
+    border: 1px solid rgba(248,245,240,0.1);
+    padding: 5px 12px;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .skill-pill:hover {
+    color: var(--paper);
+    border-color: var(--accent);
+    background: rgba(212,82,42,0.12);
+  }
+
+  /* CERTS */
+  #certifications { padding: 8rem 0; background: var(--cream); }
+
+  .certs-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; margin-top: 4rem;
+    border: 1px solid var(--border);
+    background: var(--border);
+  }
+
+  .cert-item {
+    background: var(--cream); padding: 1.75rem;
+    display: flex; align-items: center; gap: 1rem;
+    transition: background 0.2s;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.4s, transform 0.4s, background 0.2s;
+  }
+  .cert-item.visible { opacity: 1; transform: translateY(0); }
+  .cert-item:hover { background: var(--paper); }
+
+  .cert-dot {
+    width: 10px; height: 10px;
+    background: var(--accent); border-radius: 50%; flex-shrink: 0;
+  }
+
+  .cert-name { font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .cert-org { font-size: 0.7rem; color: var(--muted); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+
+  /* EDU */
+  #education { padding: 6rem 0; background: var(--paper); border-top: 1px solid var(--border); }
+
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 3rem; background: var(--border); }
+
+  .edu-card {
+    background: var(--paper); padding: 2rem 2.5rem;
+    border-left: 4px solid transparent; transition: border-color 0.2s;
+  }
+  .edu-card:hover { border-left-color: var(--accent2); }
+
+  .edu-degree { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
+  .edu-school { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent2); margin-bottom: 0.25rem; }
+  .edu-meta { font-size: 0.78rem; color: var(--muted); }
+  .edu-gpa {
+    display: inline-block; margin-top: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; color: var(--accent);
+    background: rgba(212,82,42,0.08);
+    padding: 3px 10px; letter-spacing: 0.06em;
+  }
+
+  /* CONTACT */
+  #contact { padding: 10rem 0; background: var(--paper); text-align: center; }
+
+  .contact-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 300; line-height: 1; margin-bottom: 2rem;
+  }
+  .contact-headline em { font-style: italic; color: var(--accent); }
+
+  .contact-sub { font-size: 1rem; color: var(--muted); margin-bottom: 3rem; max-width: 480px; margin-left: auto; margin-right: auto; margin-bottom: 3rem; }
+
+  .contact-links { display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap; }
+
+  .contact-link {
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none; color: var(--ink);
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    border-bottom: 2px solid var(--border); padding-bottom: 4px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-link svg { width: 15px; height: 15px; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.7rem; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  .hero-left > * { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .hero-tag { animation-delay: 0.1s; }
+  .hero-left h1 { animation-delay: 0.2s; }
+  .hero-desc { animation-delay: 0.35s; }
+  .hero-btns { animation-delay: 0.5s; }
+
+  .stat-item { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+  .stat-item:nth-child(1) { animation-delay: 0.3s; }
+  .stat-item:nth-child(2) { animation-delay: 0.45s; }
+  .stat-item:nth-child(3) { animation-delay: 0.6s; }
+  .stat-item:nth-child(4) { animation-delay: 0.75s; }
+
+  .proj-card:nth-child(2) { transition-delay: 0.1s; }
+  .proj-card:nth-child(3) { transition-delay: 0.15s; }
+  .proj-card:nth-child(4) { transition-delay: 0.2s; }
+
+  .sg:nth-child(2) { transition-delay: 0.1s; }
+  .sg:nth-child(3) { transition-delay: 0.2s; }
+  .sg:nth-child(4) { transition-delay: 0.3s; }
+  .sg:nth-child(5) { transition-delay: 0.4s; }
+
+  .exp-item:nth-child(2) { transition-delay: 0.15s; }
+  .exp-item:nth-child(3) { transition-delay: 0.3s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 5rem 1.5rem 4rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 1rem; }
+    .proj-grid { grid-template-columns: 1fr; }
+    .skills-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .certs-row { grid-template-columns: 1fr 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-brand">Kiruthika V.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Senior Product Manager · Portland, OR</div>
+    <h1>
+      Kiru-<br>
+      thika<br>
+      <em>Venka-</em><br>
+      <strong>tesan</strong>
+    </h1>
+    <p class="hero-desc">
+      <strong>Mission Control. Operator platforms. AI-powered tooling.</strong><br>
+      I build the internal infrastructure that keeps fintech companies running — 0-to-1, high-stakes, and designed to the same standard as your best consumer product.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Case Studies →</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-stack">
+      <div class="stat-item">
+        <div class="stat-num">5<span>+</span></div>
+        <div class="stat-label">Years Product Management</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">12<span>+</span></div>
+        <div class="stat-label">Fortune 500 Clients Served</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">75<span>B+</span></div>
+        <div class="stat-label">Daily Transactions Platformed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">84<span>%</span></div>
+        <div class="stat-label">Client Adoption in 6 Months</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-eyebrow">About</div>
+        <h2>Building the platforms that <em>keep companies running</em></h2>
+        <p>I'm a Senior Product Manager with a rare focus: <strong>internal operator tooling</strong>. While most PMs chase consumer apps, I've spent 5+ years building the unsexy, mission-critical infrastructure that payment ops teams, compliance engineers, and banking engineers rely on <strong>every single day</strong>.</p>
+        <p>I believe internal products deserve the same quality bar as your best consumer experience. I build with <strong>deep operator empathy</strong>, a high design sensibility, and a genuine obsession with AI as a force multiplier for the people who run your company.</p>
+        <p>My background spans <strong>FINRA</strong> and <strong>Cognizant Technology Solutions</strong> — fintech, financial services, and large-scale enterprise platforms. Currently completing my <strong>M.S. in Information Technology</strong> at the University of Denver (GPA 3.97).</p>
+      </div>
+      <div class="about-pillars">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <div>
+            <div class="pillar-title">0-to-1 Platform Builder</div>
+            <div class="pillar-desc">I've built internal operator platforms from scratch — not just roadmapped, but shipped, iterated, and made something teams are proud to open every morning.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <div>
+            <div class="pillar-title">AI as a Product Tool</div>
+            <div class="pillar-desc">Genuine excitement about AI — not as a buzzword but as specific, buildable features that give operators leverage to work faster and catch issues sooner.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <div>
+            <div class="pillar-title">Compliance & Access Control</div>
+            <div class="pillar-desc">RBAC, audit logging, separation of duties — I own the safety layer of internal tooling, not just the features on top of it.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">04</div>
+          <div>
+            <div class="pillar-title">Technical Depth</div>
+            <div class="pillar-desc">I engage deeply with engineers on systems architecture, data flows, and access control requirements — without needing to write the code myself.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-eyebrow">Experience</div>
+    <h2>Career <em>history</em></h2>
+    <div class="exp-grid">
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">May 2025 – Dec 2025</div>
+          <div class="exp-company">FINRA USA</div>
+        </div>
+        <div>
+          <div class="exp-title">Senior Product Manager — Mission Control &amp; Operator Platform</div>
+          <ul class="exp-bullets">
+            <li>Owned <strong>Mission Control roadmap</strong> for internal operator platform used daily by payment operations, banking engineers, compliance, customer support, and risk teams — built from the ground up (0-to-1), keeping pace with regulatory requirements</li>
+            <li>Leveraged <strong>AI to ship smarter operator tooling</strong> — identified where AI-powered features give operators leverage to work faster, catch issues sooner, and do more with less; championed internal-facing products to same standard as consumer products</li>
+            <li>Designed <strong>RBAC, separation of duties workflows, and audit logging</strong> — navigated technical complexity with engineers on systems, data flows, and access control; drove cross-functional alignment across engineering, design, compliance, risk, and operations</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Mission Control</span><span class="tag">0-to-1</span><span class="tag">AI Tooling</span><span class="tag">RBAC</span><span class="tag">Fintech</span><span class="tag">Operator Platform</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">Jul 2021 – Aug 2024</div>
+          <div class="exp-company">Cognizant Technology Solutions</div>
+        </div>
+        <div>
+          <div class="exp-title">Senior Product Manager — Operator Platform &amp; Fintech Internal Tooling</div>
+          <ul class="exp-bullets">
+            <li>Built and owned internal operator platform products from strategy to execution for <strong>12+ Fortune 500 fintech clients</strong> — shipped high-quality internal tools and admin experiences that teams were proud to use; drove 84% adoption in 6 months</li>
+            <li><strong>Leveraged AI and intelligent automation</strong> to give operators leverage — championed design sensibility beyond consumer products to internal tooling; engaged with engineering on systems, data flows, access control without writing code; improved data quality 84%</li>
+            <li>Designed and owned <strong>RBAC, separation of duties, and audit logging</strong> for fintech compliance — delivered 4 consecutive releases 100% on time; drove cross-functional alignment across engineering, compliance, operations</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Internal Tooling</span><span class="tag">Audit Logging</span><span class="tag">Compliance</span><span class="tag">Agile</span><span class="tag">Enterprise Platform</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">Jun 2020 – Jul 2021</div>
+          <div class="exp-company">Cognizant Technology Solutions</div>
+        </div>
+        <div>
+          <div class="exp-title">Associate Product Manager — Internal Platform &amp; Fintech Operator Tooling</div>
+          <ul class="exp-bullets">
+            <li>Owned internal operator platforms from the ground up — developed deep empathy for payment operations, compliance, and customer support operators relying on high-stakes tooling every single day; reduced operator friction 29%</li>
+            <li>Navigated technical complexity engaging with engineers on systems, data flows, and access control; <strong>identified AI-powered automation</strong> to give operators leverage; improved cross-functional coordination 30%</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Operator Empathy</span><span class="tag">Backlog Management</span><span class="tag">Access Control</span><span class="tag">CRM</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-eyebrow">Projects</div>
+    <h2>Case <em>studies</em></h2>
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <div class="proj-type">Lead PM · 18 Months</div>
+        <div class="proj-title">Mission Control — Internal Operator Platform</div>
+        <p class="proj-desc">Built the 0-to-1 internal operator platform from the ground up — the tooling that payment ops, compliance, risk, and customer support teams open every day. Leveraged AI for intelligent automation, designed full RBAC and audit logging infrastructure.</p>
+        <div class="proj-stack">
+          <span class="tag">Operator Tooling</span><span class="tag">AI Automation</span><span class="tag">RBAC</span><span class="tag">Audit Logging</span><span class="tag">Fintech Compliance</span><span class="tag">APIs</span>
+        </div>
+        <div class="proj-results">
+          <div class="res"><strong>+44%</strong><span>Operator Adoption</span></div>
+          <div class="res"><strong>+84%</strong><span>AI Coverage</span></div>
+          <div class="res"><strong>+41%</strong><span>Compliance Controls</span></div>
+          <div class="res"><strong>+38%</strong><span>Operator Experience</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-type">PM · 10 Months</div>
+        <div class="proj-title">Fintech Operator Platform — RBAC &amp; Audit Logging</div>
+        <p class="proj-desc">Designed and implemented role-based access controls, separation of duties workflows, and audit logging for a fintech internal platform. Studied workflows of payment operations, compliance, and risk teams who relied on the tooling every single day.</p>
+        <div class="proj-stack">
+          <span class="tag">Fintech Platform</span><span class="tag">RBAC</span><span class="tag">Audit Logging</span><span class="tag">AI Features</span><span class="tag">Compliance</span><span class="tag">Risk</span>
+        </div>
+        <div class="proj-results">
+          <div class="res"><strong>+36%</strong><span>Compliance Controls</span></div>
+          <div class="res"><strong>+28%</strong><span>Operator Efficiency</span></div>
+          <div class="res"><strong>+33%</strong><span>Stakeholder Alignment</span></div>
+          <div class="res"><strong>+100%</strong><span>Business Value</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-eyebrow">Capabilities</div>
+    <h2>Skills &amp; <em>expertise</em></h2>
+    <div class="skills-layout">
+      <div class="skills-intro">
+        A product skillset built around the unglamorous, critical work of internal platforms — operator empathy, compliance infrastructure, AI tooling, and the technical depth to engage meaningfully with engineering teams.
+      </div>
+      <div class="skills-groups">
+        <div class="sg">
+          <div class="sg-label">Operator Platform &amp; 0-to-1</div>
+          <div class="sg-pills">
+            <span class="skill-pill">Mission Control Platform</span>
+            <span class="skill-pill">Internal Operator Tooling</span>
+            <span class="skill-pill">0-to-1 Product Builds</span>
+            <span class="skill-pill">Admin Experiences</span>
+            <span class="skill-pill">Roadmap Strategy</span>
+            <span class="skill-pill">Fintech PM</span>
+          </div>
+        </div>
+        <div class="sg">
+          <div class="sg-label">AI &amp; Intelligent Automation</div>
+          <div class="sg-pills">
+            <span class="skill-pill">AI-Powered Operator Tooling</span>
+            <span class="skill-pill">Intelligent Automation</span>
+            <span class="skill-pill">AI Feature Development</span>
+            <span class="skill-pill">Operator Leverage</span>
+            <span class="skill-pill">AI Product Strategy</span>
+          </div>
+        </div>
+        <div class="sg">
+          <div class="sg-label">Compliance &amp; Access Control</div>
+          <div class="sg-pills">
+            <span class="skill-pill">Role-Based Access Controls (RBAC)</span>
+            <span class="skill-pill">Separation of Duties</span>
+            <span class="skill-pill">Audit Logging</span>
+            <span class="skill-pill">Safe Compliant Actions</span>
+            <span class="skill-pill">Fintech Compliance</span>
+            <span class="skill-pill">Risk Management</span>
+          </div>
+        </div>
+        <div class="sg">
+          <div class="sg-label">Technical Depth</div>
+          <div class="sg-pills">
+            <span class="skill-pill">Systems &amp; Data Flows</span>
+            <span class="skill-pill">Access Control Architecture</span>
+            <span class="skill-pill">APIs</span>
+            <span class="skill-pill">Engineering Collaboration</span>
+            <span class="skill-pill">Operator Workflow Analysis</span>
+          </div>
+        </div>
+        <div class="sg">
+          <div class="sg-label">Design &amp; Communication</div>
+          <div class="sg-pills">
+            <span class="skill-pill">High Design Bar for Internal Products</span>
+            <span class="skill-pill">Design Sensibility</span>
+            <span class="skill-pill">Cross-Functional Alignment</span>
+            <span class="skill-pill">Stakeholder Communication</span>
+            <span class="skill-pill">Compliance, Risk, Operations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="section-eyebrow">Credentials</div>
+    <h2>Certifi<em>cations</em></h2>
+    <div class="certs-row">
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div><div class="cert-name">Salesforce Certified AI Associate</div><div class="cert-org">Salesforce</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div><div class="cert-name">Salesforce Admin (ADM 201)</div><div class="cert-org">Salesforce</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div><div class="cert-name">Salesforce Platform App Builder</div><div class="cert-org">Salesforce</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div><div class="cert-name">AWS Cloud Practitioner</div><div class="cert-org">Amazon Web Services</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div><div class="cert-name">GitLab CI/CD Certified</div><div class="cert-org">GitLab</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot"></div>
+        <div><div class="cert-name">Pega Certified System Architect</div><div class="cert-org">Pegasystems</div></div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div style="margin-top: 5rem;">
+      <div class="section-eyebrow">Education</div>
+      <h2>Academic <em>background</em></h2>
+      <div class="edu-grid" style="margin-top: 2rem;">
+        <div class="edu-card">
+          <div class="edu-degree">Master of Science — Information Technology</div>
+          <div class="edu-school">University of Denver</div>
+          <div class="edu-meta">Aug 2024 – May 2026 · Denver, CO</div>
+          <div class="edu-gpa">GPA: 3.97 / 4.0</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-degree">Bachelor of Engineering — Computer Science</div>
+          <div class="edu-school">Anna University</div>
+          <div class="edu-meta">Aug 2017 – May 2021</div>
+          <div class="edu-gpa">GPA: 3.8 / 4.0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-headline">Let's<br>build something <em>real.</em></div>
+    <p class="contact-sub">Open to Senior PM roles focused on operator platforms, internal tooling, and AI-powered fintech products. Portland, OR.</p>
+    <div class="contact-links">
+      <a href="mailto:kiruthikavenkat2704@gmail.com" class="contact-link">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        kiruthikavenkat2704@gmail.com
+      </a>
+      <a href="tel:+17208135590" class="contact-link">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        (+1) 720-813-5590
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Kiruthika Venkatesan · Senior Product Manager</span>
+  <span>Portland, OR · kiruthikavenkat2704@gmail.com</span>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width = '20px'; cursor.style.height = '20px'; ring.style.width = '52px'; ring.style.height = '52px'; ring.style.opacity = '0.3'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width = '12px'; cursor.style.height = '12px'; ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '0.5'; });
+  });
+
+  // Intersection observer
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.exp-item, .proj-card, .sg, .cert-item').forEach(el => io.observe(el));
+
+  // Active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : ''; });
+  }, { passive: true });
+</script>
+</body>
+</html>
